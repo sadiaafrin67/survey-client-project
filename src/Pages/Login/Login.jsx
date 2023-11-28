@@ -5,9 +5,11 @@ import swal from "sweetalert";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import useAxiosOpen from "../../Hook/useAxiosOpen";
 
 const Login = () => {
 
+  const axiosOpen = useAxiosOpen();
   const { SignInUser, signInWithGoogle } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,8 +21,19 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        const userInfo = {
+          displayName: result.user?.displayName,
+          email: result.user?.email
+  
+       
+        }
+        axiosOpen.post("/users", userInfo)
+        .then((res) => {
+          console.log(res.data);
+          navigate(location?.state ? location.state : "/");
+        })
 
-        navigate(location?.state ? location.state : "/");
+        
       })
       .catch((error) => {
         console.log(error);

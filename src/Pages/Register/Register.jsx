@@ -5,9 +5,11 @@ import Lottie from "lottie-react";
 import { useContext, useState } from "react";
 import animation from "../../assets/reg.json";
 import { AuthContext } from "../../Providers/AuthProvider";
+import useAxiosOpen from "../../Hook/useAxiosOpen";
 
 const Register = () => {
 
+  const axiosPublic = useAxiosOpen()
   const {  createUser} = useContext(AuthContext);
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
@@ -49,10 +51,25 @@ const Register = () => {
         .then((result) => {
           const user = result.user;
           console.log(user);
-          e.target.reset();
+
+          // create user entry in db
+         const userData = {
+            name,
+            email,
+         }
+         axiosPublic.post('/users', userData)
+         .then((res) => {
+           if(res.data.insertedId){
+             console.log('user created');
+             e.target.reset();
   
           swal("Signup", "You are successfully signed up", "success");
           navigate("/");
+           }
+         })
+
+
+          
         })
         .catch((error) => {
           console.log(error);

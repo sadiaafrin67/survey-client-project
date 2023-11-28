@@ -68,7 +68,7 @@ const Navber = () => {
         Go Pro
       </NavLink>
       <NavLink
-        to="/dashboard"
+        to="/dashboard/allUser"
         className={({ isActive }) => (isActive ? "active-link" : "link")}
       >
         Dashboard
