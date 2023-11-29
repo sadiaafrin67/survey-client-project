@@ -1,12 +1,17 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import swal from "sweetalert";
+import useAdmin from "../../../Hook/UseAdmin";
+import useSurveyor from "../../../Hook/useSurveyor";
 
 const Navber = () => {
 
+  const navigate = useNavigate()
   const { user, logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin()
+  const [isSurveyor] = useSurveyor()
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "cupcake"
   );
@@ -26,6 +31,7 @@ const Navber = () => {
         .then(() => {
           console.log("logged out");
           swal("Signout", "You are successfully signed out", "success");
+          navigate("/");
         })
         .catch((error) => {
           console.log(error);
@@ -55,30 +61,26 @@ const Navber = () => {
       >
         Surveys
       </NavLink>
-      <NavLink
+      {/* <NavLink
         to="/details"
         className={({ isActive }) => (isActive ? "active-link" : "link")}
       >
         Survey Details
-      </NavLink>
+      </NavLink> */}
       <NavLink
         to="/pro"
         className={({ isActive }) => (isActive ? "active-link" : "link")}
       >
         Go Pro
       </NavLink>
-      <NavLink
+
+    { isAdmin || isSurveyor ? <NavLink
         to="/dashboard"
         className={({ isActive }) => (isActive ? "active-link" : "link")}
       >
         Dashboard
-      </NavLink>
-      {/* <NavLink
-        to="/login"
-        className={({ isActive }) => (isActive ? "active-link" : "link")}
-      >
-        Login
-      </NavLink> */}
+      </NavLink> : ''}
+     
     </>
   );
 
@@ -173,6 +175,7 @@ const Navber = () => {
                 {console.log("js diye aslm", user.photoURL)}
                 <li>
                   <Link onClick={handleLogOut}>Logout</Link>
+                 
                 </li>
               </ul>
             </div>

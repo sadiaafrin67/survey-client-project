@@ -16,6 +16,7 @@ import UserFeed from "../Pages/Dashboard/UserFeed";
 import AdminFeed from "../Pages/Dashboard/AdminFeed";
 import SurRes from "../Pages/Dashboard/SurRes";
 import AdminRoute from "./AdminRoute";
+import PrivateRoute from "./PrivateRoute";
 
 
 const Routes = createBrowserRouter([
@@ -32,8 +33,9 @@ const Routes = createBrowserRouter([
                 element: <Surveys></Surveys>
             },
             {
-                path: '/details',
-                element: <SurveyDetail></SurveyDetail>
+                path: '/details/:id',
+                element: <SurveyDetail></SurveyDetail>,
+                loader: ({params}) => fetch(`http://localhost:5000/surveys/${params.id}`)
             },
             {
                 path: '/pro',
@@ -78,19 +80,19 @@ const Routes = createBrowserRouter([
 
             {
                 path: 'creation',
-                element: <Creation></Creation>
+                element: <PrivateRoute><Creation></Creation></PrivateRoute>
             },
             {
                 path: 'userFedd',
-                element: <UserFeed></UserFeed>
+                element: <PrivateRoute><UserFeed></UserFeed></PrivateRoute>
             },
             {
                 path: 'adminfeed',
-                element: <AdminFeed></AdminFeed>
+                element: <PrivateRoute><AdminFeed></AdminFeed></PrivateRoute>
             },
             {
                 path: 'surresponse',
-                element: <SurRes></SurRes>
+                element: <PrivateRoute><SurRes></SurRes></PrivateRoute>
             }
         ]
       }

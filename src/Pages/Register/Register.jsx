@@ -56,6 +56,7 @@ const Register = () => {
          const userData = {
             name,
             email,
+            role: 'user',
          }
          axiosPublic.post('/users', userData)
          .then((res) => {

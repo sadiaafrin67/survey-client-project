@@ -1,37 +1,55 @@
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
+
+
 const Creation = () => {
 
-    const handleSurvey = (e) => {
-        e.preventDefault()
-        const form = e.target
-        const title = form.title.value
-        const description = form.description.value
-        const question = form.question.value
-        const deadline = form.deadline.value
-        const category = form.category.value
+  const axiosSecure = useAxiosSecure();
+  
 
-        const data = {
-            title,
-            description,
-            question,
-            deadline,
-            category
-        }
+  const handleSurvey = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const title = form.title.value;
+    const description = form.description.value;
+    const question = form.question.value;
+    const deadline = form.deadline.value;
+    const category = form.category.value;
 
-        console.log(data)
+    const data = {
+      title,
+      description,
+      question,
+      deadline,
+      category,
+      voted: 0
+    };
 
-    }
+    console.log(data);
+
+    axiosSecure.post("/surveys", data)
+    .then((res) => {
+      if(res.data.insertedId){
+        Swal.fire({
+          title: 'Success!',
+          text: 'Your Survey Added Successfully',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        })
+      }
+    })
+  };
+
+  
 
   return (
     <div>
-     
-
       <div>
         <div className="bg-[#f1f3f5] rounded-xl md:p-24 p-4 my-20">
           <h2 className="text-3xl mb-10 text-center font-extrabold">
             Add Your <span className="text-[#1e3c72]">Survey</span>
           </h2>
-          <form>
-          
+          <form onSubmit={handleSurvey}>
             <div className="md:flex gap-4 mb-8">
               <div className="form-control   md:w-1/2 ">
                 <label className="label ">
@@ -39,10 +57,9 @@ const Creation = () => {
                 </label>
                 <label className="input-group ">
                   <input
-                
                     type="text"
                     placeholder="Add a title"
-                    name="tile"
+                    name="title"
                     className="input form-border input-bordered w-full"
                   />
                 </label>
@@ -65,7 +82,6 @@ const Creation = () => {
               </div>
             </div>
 
-            
             <div className="md:flex gap-4 mb-8">
               <div className="form-control md:w-1/2">
                 <label className="label">
@@ -120,7 +136,7 @@ const Creation = () => {
               type="submit"
               className="btn btn-block bg-blue-950 text-white form-border"
             >
-             Submit Survey
+              Submit Survey
             </button>
           </form>
         </div>

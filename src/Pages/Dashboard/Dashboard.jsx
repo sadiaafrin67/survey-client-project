@@ -1,10 +1,14 @@
 import { FaHome, FaPen, FaUser } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../Hook/UseAdmin";
+import useSurveyor from "../../Hook/useSurveyor";
 
 const Dashboard = () => {
   const [isAdmin] = useAdmin();
   console.log(isAdmin);
+
+  const [isSurveyor] = useSurveyor();
+  console.log(isSurveyor)
 
   // const isAdmin = true;
   // const isSurveyor = false
@@ -14,7 +18,7 @@ const Dashboard = () => {
       {/* dashboard sidebar */}
       <div className="w-64 min-h-screen bg-slate-100">
         <ul className="menu p-4">
-          {isAdmin ? (
+          {isAdmin && (
             <>
               <h2 className="text-center font-bold py-4">Admin Dashboard</h2>
               <li>
@@ -32,9 +36,11 @@ const Dashboard = () => {
                 <NavLink to="/dashboard/response">Response</NavLink>
               </li>
             </>
-          ) :
+          )}
 
-         (
+          {isSurveyor && (
+            
+          
             <>
               <h2 className="text-center font-bold py-4">Surveyor Dashboard</h2>
               <li>
