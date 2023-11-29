@@ -126,7 +126,7 @@ const Login = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-grad text-white">Login</button>
+                <button className="btn bg-blue-950 hover:bg-blue-500 text-white">Login</button>
               </div>
             </form>
             <p className="text-center py-4 font-medium">

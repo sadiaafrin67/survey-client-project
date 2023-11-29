@@ -68,7 +68,7 @@ const Navber = () => {
         Go Pro
       </NavLink>
       <NavLink
-        to="/dashboard/allUser"
+        to="/dashboard"
         className={({ isActive }) => (isActive ? "active-link" : "link")}
       >
         Dashboard
@@ -209,7 +209,7 @@ const Navber = () => {
                 </label>
 
                 <Link to="/login">
-                  <button className="btn rounded-lg text-white btn-grad ">Login</button>
+                  <button className="btn rounded-lg text-white bg-blue-900 ">Login</button>
                 </Link>
               </div>
             </>

@@ -204,7 +204,7 @@ const Register = () => {
                 </div>
 
                 <div className="form-control mt-6">
-                  <button className="btn btn-grad text-white">Sign Up</button>
+                  <button className="btn bg-blue-950 text-white hover:bg-blue-500">Sign Up</button>
                 </div>
               </form>
               <p className="text-center py-4 font-medium">

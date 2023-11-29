@@ -11,6 +11,11 @@ import AllUser from "../Pages/Dashboard/AllUser";
 import Payment from "../Pages/Dashboard/Payment";
 import Status from "../Pages/Dashboard/Status";
 import Response from "../Pages/Dashboard/Response";
+import Creation from "../Pages/Dashboard/Creation";
+import UserFeed from "../Pages/Dashboard/UserFeed";
+import AdminFeed from "../Pages/Dashboard/AdminFeed";
+import SurRes from "../Pages/Dashboard/SurRes";
+import AdminRoute from "./AdminRoute";
 
 
 const Routes = createBrowserRouter([
@@ -48,25 +53,44 @@ const Routes = createBrowserRouter([
             }
         ]
       },
+      
       {
         path: 'dashboard',
         element: <Dashboard></Dashboard>,
         children: [
             {
                 path: 'allUser',
-                element: <AllUser></AllUser>
+                element: <AdminRoute><AllUser></AllUser></AdminRoute>
             },
             {
                 path: 'payment',
-                element: <Payment></Payment>
+                element: <AdminRoute><Payment></Payment></AdminRoute>
             },
             {
                 path: 'status',
-                element: <Status></Status>
+                element: <AdminRoute><Status></Status></AdminRoute>
             },
             {
                 path: 'response',
-                element: <Response></Response>
+                element: <AdminRoute><Response></Response></AdminRoute>
+            },
+
+
+            {
+                path: 'creation',
+                element: <Creation></Creation>
+            },
+            {
+                path: 'userFedd',
+                element: <UserFeed></UserFeed>
+            },
+            {
+                path: 'adminfeed',
+                element: <AdminFeed></AdminFeed>
+            },
+            {
+                path: 'surresponse',
+                element: <SurRes></SurRes>
             }
         ]
       }

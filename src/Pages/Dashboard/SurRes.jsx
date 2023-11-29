@@ -1,18 +1,18 @@
 
 
-const Status = () => {
+const SurRes = () => {
     return (
         <div>
-          <div className="overflow-x-auto">
+           <div className="overflow-x-auto">
   <table className="table">
     {/* head */}
     <thead>
       <tr>
         <th></th>
-        <th>Category</th>
-        <th>Title</th>
-        <th>Publish</th>
-        <th>Unpublish</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Time</th>
+        <th>Voted</th>
       </tr>
     </thead>
     <tbody>
@@ -28,8 +28,9 @@ const Status = () => {
     </tbody>
   </table>
 </div>
+
         </div>
     );
 };
 
-export default Status;
+export default SurRes;

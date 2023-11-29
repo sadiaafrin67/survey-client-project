@@ -21,7 +21,7 @@ const Banner = () => {
           </p>
           <div className="flex justify-center items-center">
           <Link to="/surveys">
-          <button className="btn-grad">Explore More</button>
+          <button className="btn text-blue-900 rounded-lg bg-white border-none">Explore More</button>
           </Link>
           </div>
         </div>
