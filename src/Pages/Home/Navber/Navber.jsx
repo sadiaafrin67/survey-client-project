@@ -9,7 +9,7 @@ import useSurveyor from "../../../Hook/useSurveyor";
 const Navber = () => {
 
   const navigate = useNavigate()
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, setUser } = useContext(AuthContext);
   const [isAdmin] = useAdmin()
   const [isSurveyor] = useSurveyor()
   const [theme, setTheme] = useState(
@@ -31,7 +31,11 @@ const Navber = () => {
         .then(() => {
           console.log("logged out");
           swal("Signout", "You are successfully signed out", "success");
-          navigate("/");
+          setUser(null);
+        
+          setTimeout(() => {
+            navigate("/");
+          },500)
         })
         .catch((error) => {
           console.log(error);
@@ -61,12 +65,7 @@ const Navber = () => {
       >
         Surveys
       </NavLink>
-      {/* <NavLink
-        to="/details"
-        className={({ isActive }) => (isActive ? "active-link" : "link")}
-      >
-        Survey Details
-      </NavLink> */}
+      
       <NavLink
         to="/pro"
         className={({ isActive }) => (isActive ? "active-link" : "link")}

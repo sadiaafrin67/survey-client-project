@@ -12,10 +12,11 @@ const useSurveyor = () => {
 
     const {data: isSurveyor, isPending: isSurveyorLoading} = useQuery({
         queryKey: [user?.email, 'isSurveyor'],
-        enabled: !loading,
+        enabled:  !!user?.email,
     //    enabled: !loading && !!user?.email,
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/admin/${user?.email}`)
+
            
             console.log(res.data)
 
