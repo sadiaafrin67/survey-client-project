@@ -2,6 +2,15 @@ import { FaHome, FaPen, FaUser } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../Hook/UseAdmin";
 import useSurveyor from "../../Hook/useSurveyor";
+import { GrUpdate } from "react-icons/gr";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
+import { AiFillWechat } from "react-icons/ai";
+import { FaHandHoldingDollar } from "react-icons/fa6";
+import { HiMiniUsers } from "react-icons/hi2";
+import { BsArrowRightCircleFill } from "react-icons/bs";
+import { RiSurveyFill } from "react-icons/ri";
+
 
 const Dashboard = () => {
   const [isAdmin] = useAdmin();
@@ -23,17 +32,17 @@ const Dashboard = () => {
               <h2 className="text-center font-bold py-4">Admin Dashboard</h2>
               <li>
                 <NavLink to="/dashboard/allUser">
-                  <FaUser></FaUser> Manage User
+                <HiMiniUsers className="text-xl"></HiMiniUsers> Manage Users
                 </NavLink>
               </li>
               <li className="mt-3">
-                <NavLink to="/dashboard/payment">Payment Information</NavLink>
+                <NavLink to="/dashboard/payment"><FaHandHoldingDollar className="text-xl"></FaHandHoldingDollar> Payment Information</NavLink>
               </li>
               <li className="mt-3">
-                <NavLink to="/dashboard/status">Status</NavLink>
+                <NavLink to="/dashboard/status"><BsArrowRightCircleFill className="text-xl"></BsArrowRightCircleFill>Status</NavLink>
               </li>
               <li className="mt-3">
-                <NavLink to="/dashboard/response">Response</NavLink>
+                <NavLink to="/dashboard/response"><AiFillWechat className="text-xl"></AiFillWechat> Response</NavLink>
               </li>
             </>
           )}
@@ -45,17 +54,20 @@ const Dashboard = () => {
               <h2 className="text-center font-bold py-4">Surveyor Dashboard</h2>
               <li>
                 <NavLink to="/dashboard/creation">
-              <FaPen></FaPen> Survey Creation
+              <FaPen></FaPen> Create Survey
                 </NavLink>
               </li>
               <li className="mt-3">
-                <NavLink to="/dashboard/userFedd">User Feedback</NavLink>
+                <NavLink to="/dashboard/mysurvey"><RiSurveyFill className="text-xl"></RiSurveyFill> My Surveys</NavLink>
               </li>
               <li className="mt-3">
-                <NavLink to="/dashboard/adminfeed">Admin Feedback</NavLink>
+                <NavLink to="/dashboard/userFedd"><FaUserCircle className="text-xl"></FaUserCircle> User Feedback</NavLink>
               </li>
               <li className="mt-3">
-                <NavLink to="/dashboard/surresponse">Response</NavLink>
+                <NavLink to="/dashboard/adminfeed"><MdAdminPanelSettings className="text-xl"></MdAdminPanelSettings> Admin Feedback</NavLink>
+              </li>
+              <li className="mt-3">
+                <NavLink to="/dashboard/surresponse"><AiFillWechat className="text-xl"></AiFillWechat> Response</NavLink>
               </li>
             </>
          )}

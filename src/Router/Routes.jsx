@@ -18,6 +18,8 @@ import SurRes from "../Pages/Dashboard/SurRes";
 import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import About from "../Pages/Dashboard/AboutUs/About";
+import UpdateSurvey from "../Pages/Dashboard/UpdateSurvey";
+import MySurvey from "../Pages/Dashboard/MySurvey";
 
 
 const Routes = createBrowserRouter([
@@ -86,6 +88,10 @@ const Routes = createBrowserRouter([
             {
                 path: 'creation',
                 element: <PrivateRoute><Creation></Creation></PrivateRoute>
+            },
+            {
+                path: 'mysurvey',
+                element: <PrivateRoute><MySurvey></MySurvey></PrivateRoute>
             },
             {
                 path: 'userFedd',

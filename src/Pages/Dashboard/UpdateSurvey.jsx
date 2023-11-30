@@ -1,12 +1,10 @@
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import { useContext } from "react";
-import { AuthContext } from "../../Providers/AuthProvider";
 
 
-const Creation = () => {
 
-  const {user} = useContext(AuthContext)
+const UpdateSurvey = () => {
+
   const axiosSecure = useAxiosSecure();
   
 
@@ -27,18 +25,17 @@ const Creation = () => {
       category,
       voted: 0,
       dislike: 0,
-      status: 'Pending',
-      email: user?.email
+  
     };
 
     console.log(data);
 
     axiosSecure.post("/surveys", data)
     .then((res) => {
-      if(res.data.insertedId){
+      if(res.data.modifiedCount > 0){
         Swal.fire({
           title: 'Success!',
-          text: 'Your Survey Added Successfully',
+          text: 'Your Survey Updated Successfully',
           icon: 'success',
           confirmButtonText: 'Ok'
         })
@@ -65,6 +62,7 @@ const Creation = () => {
                   <input
                     type="text"
                     placeholder="Add a title"
+                    defaultValue='title'
                     name="title"
                     className="input form-border input-bordered w-full"
                   />
@@ -81,6 +79,7 @@ const Creation = () => {
                     type="text"
                     required
                     placeholder="Ask a question"
+                    defaultValue='question'
                     name="question"
                     className="input  form-border input-bordered w-full"
                   />
@@ -99,6 +98,7 @@ const Creation = () => {
                     required
                     placeholder="Deadline"
                     name="deadline"
+                    defaultValue='deadline'
                     className="input  form-border input-bordered w-full"
                   />
                 </label>
@@ -114,6 +114,7 @@ const Creation = () => {
                     required
                     placeholder="Description"
                     name="description"
+                    defaultValue='description'
                     className="input form-border  input-bordered w-full"
                   />
                 </label>
@@ -132,6 +133,7 @@ const Creation = () => {
                     type="text"
                     placeholder="Category"
                     name="category"
+                    defaultValue='category'
                     className="input form-border  input-bordered w-full"
                   />
                 </label>
@@ -142,7 +144,7 @@ const Creation = () => {
               type="submit"
               className="btn btn-block bg-blue-950 text-white form-border"
             >
-              Create Survey
+              Update Survey
             </button>
           </form>
         </div>
@@ -151,4 +153,4 @@ const Creation = () => {
   );
 };
 
-export default Creation;
+export default UpdateSurvey;

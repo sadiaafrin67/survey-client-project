@@ -54,11 +54,11 @@ const SurveyDetail = () => {
 
         e.preventDefault();
         const yes = e.target.yes.value;
-        const no = e.target.no.value;
+       
         const report = e.target.report.value;
         const data = {
             yes,
-            no,
+           
             report
         }
         console.log(data)
@@ -94,7 +94,7 @@ const SurveyDetail = () => {
           </div>
           <div className="flex justify-center gap-2 mt-3">
             <label className="text-base font-medium">No</label>
-            <input type="radio" name="no" className="radio" />
+            <input type="radio" name="yes" className="radio" />
           </div>
 
           <div className="mt-5">

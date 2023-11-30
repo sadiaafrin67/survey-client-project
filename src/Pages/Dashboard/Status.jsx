@@ -1,20 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import StatusTableRow from "./StatusTableRow";
-import { useState } from "react";
+
 
 
 const Status = () => {
 
-  let [isOpen, setIsOpen] = useState(false)
-
-  function closeModal() {
-    setIsOpen(false)
-  }
-
-  function openModal() {
-    setIsOpen(true)
-  }
+ 
 
   const axiosSecure = useAxiosSecure()
 
@@ -44,7 +36,7 @@ const Status = () => {
     </thead>
     <tbody>
       {
-        allsurveyor?.map((surveyor, index) => <StatusTableRow key={surveyor._id} index={index} surveyor={surveyor} openModal={openModal} closeModal={closeModal} isOpen={isOpen} setIsOpen={setIsOpen}></StatusTableRow>)
+        allsurveyor?.map((surveyor, index) => <StatusTableRow key={surveyor._id} index={index} surveyor={surveyor} ></StatusTableRow>)
       }
       
      
