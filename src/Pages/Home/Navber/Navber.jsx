@@ -72,6 +72,12 @@ const Navber = () => {
       >
         Go Pro
       </NavLink>
+      <NavLink
+        to="/about"
+        className={({ isActive }) => (isActive ? "active-link" : "link")}
+      >
+        About Us
+      </NavLink>
 
     { isAdmin || isSurveyor ? <NavLink
         to="/dashboard"

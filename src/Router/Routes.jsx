@@ -17,6 +17,7 @@ import AdminFeed from "../Pages/Dashboard/AdminFeed";
 import SurRes from "../Pages/Dashboard/SurRes";
 import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
+import About from "../Pages/Dashboard/AboutUs/About";
 
 
 const Routes = createBrowserRouter([
@@ -52,6 +53,10 @@ const Routes = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register></Register>
+            },
+            {
+                path: '/about',
+                element: <About></About>
             }
         ]
       },

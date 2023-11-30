@@ -50,6 +50,20 @@ const SurveyDetail = () => {
         return <h1>Loading...</h1>
     }
 
+    const handleOption = (e) => {
+
+        e.preventDefault();
+        const yes = e.target.yes.value;
+        const no = e.target.no.value;
+        const report = e.target.report.value;
+        const data = {
+            yes,
+            no,
+            report
+        }
+        console.log(data)
+    }
+
   return (
     <div className="card  bg-base-100 shadow-xl">
       <div className="card-body items-center text-center">
@@ -70,21 +84,26 @@ const SurveyDetail = () => {
               Do you want to participate in this survey?
             </span>
           </p>
-          <div className="flex justify-center gap-2 mt-5">
+
+
+         <form onSubmit={handleOption}>
+
+         <div className="flex justify-center gap-2 mt-5">
             <label className="text-base font-medium">Yes</label>
-            <input type="radio" name="radio-1" className="radio" checked />
+            <input type="radio" name="yes" className="radio" checked />
           </div>
           <div className="flex justify-center gap-2 mt-3">
             <label className="text-base font-medium">No</label>
-            <input type="radio" name="radio-1" className="radio" />
+            <input type="radio" name="no" className="radio" />
           </div>
+
           <div className="mt-5">
             <label>Report Survey</label>
             <input
               placeholder="Report Here"
               className="border px-2 py-1 ml-3  bg-gray-300"
               type="text"
-              name=""
+              name="report"
               id=""
             />
           </div>
@@ -93,10 +112,12 @@ const SurveyDetail = () => {
               Submit Survey
             </button>
           </div>
+         </form>
+
         </div>
 
-        <div className="flex   justify-between md:w-1/3">
-          <div className="flex  justify-start gap-4  md:w-1/3">
+        <div className="  text-center md:flex items-center">
+          <div className="flex text-center  gap-4  ">
             <button onClick={() => handleLike(id)} className="btn">
               <AiFillLike className="text-3xl"></AiFillLike>
               <div className="badge">{voted}</div>
@@ -107,9 +128,23 @@ const SurveyDetail = () => {
               <div className="badge">{dislike}</div>
             </button>
           </div>
-          <div>
+          {/* <div>
             <FaComment className="text-5xl"></FaComment>
-          </div>
+          </div> */}
+        <form >
+
+        <div className="mb-6 mt-4 flex items-center">
+          <input
+            type="text"
+            name="comment"
+            placeholder="write your comment"
+            className="block  ml-4 p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md rounded-l-lg rounded-r-none"
+            required
+      
+          /> <button className=" rounded-r-lg text-white py-4 font-medium px-3 bg-blue-950">Comment</button>
+         
+        </div>
+        </form>
         </div>
       </div>
     </div>

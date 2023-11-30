@@ -22,7 +22,9 @@ const Creation = () => {
       question,
       deadline,
       category,
-      voted: 0
+      voted: 0,
+      dislike: 0,
+      status: false
     };
 
     console.log(data);
