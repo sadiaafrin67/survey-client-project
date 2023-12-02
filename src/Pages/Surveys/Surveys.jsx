@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const Surveys = () => {
   const axiosPublic = useAxiosOpen();
   const [searchInput, setSearchInput] = useState("");
-  const [filterS, setFilterS] = useState(null)
+  const [filterS, setFilterS] = useState(null);
 
   const {
     data: surveys = [],
@@ -23,38 +23,42 @@ const Surveys = () => {
   });
 
   useEffect(() => {
-    if(filterS === null && surveys && surveys.length > 0){
-      setFilterS(surveys)
-    } 
-  }, [filterS, surveys])
-
+    if (filterS === null && surveys && surveys.length > 0) {
+      setFilterS(surveys);
+    }
+  }, [filterS, surveys]);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
 
-  
-
   const handelSearchSubmit = (e) => {
     e.preventDefault();
-  
+
     // Filter the data based on the search input (title or category)
-    const filteredSurveys = surveys?.filter(survey => {
+    const filteredSurveys = surveys?.filter((survey) => {
       const searchInputLower = searchInput.toLowerCase();
       const titleLower = survey.title.toLowerCase();
       const categoryLower = survey.category.toLowerCase();
-  
-      return titleLower.includes(searchInputLower) || categoryLower.includes(searchInputLower);
+
+      return (
+        titleLower.includes(searchInputLower) ||
+        categoryLower.includes(searchInputLower)
+      );
     });
-    
-    setFilterS(filteredSurveys)
-    console.log('Filtered Surveys:', filteredSurveys);
+
+    setFilterS(filteredSurveys);
+    console.log("Filtered Surveys:", filteredSurveys);
   };
 
   return (
     <div className="mb-20 mt-10">
-      <form onSubmit={handelSearchSubmit}>
-        <div className="mb-8 ">
+      <h2 className="lg:text-4xl md:text-2xl text-xl font-bold text-[#2a5298] text-center">
+        Participate in Surveys
+      </h2>
+
+      <form className="w-full flex flex-1 justify-center items-center" onSubmit={handelSearchSubmit}>
+        <div className="my-8 ">
           <input
             className="border ml-5 w-[300px] p-2 text-center rounded-l-lg"
             placeholder="Filter by title and category"
@@ -72,18 +76,16 @@ const Surveys = () => {
         </div>
       </form>
 
-      <h2 className="lg:text-4xl md:text-2xl text-xl font-bold text-[#2a5298] text-center">
-        Participate in Surveys
-      </h2>
-
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {filterS && filterS.length > 0 && filterS?.map((survey) => (
-          <SurveyCard
-            key={survey._id}
-            survey={survey}
-            refetch={refetch}
-          ></SurveyCard>
-        ))}
+        {filterS &&
+          filterS.length > 0 &&
+          filterS?.map((survey) => (
+            <SurveyCard
+              key={survey._id}
+              survey={survey}
+              refetch={refetch}
+            ></SurveyCard>
+          ))}
       </div>
     </div>
   );
@@ -91,6 +93,5 @@ const Surveys = () => {
 
 export default Surveys;
 
-
-// truthy value 
+// truthy value
 // falsy value = 0, null , , '', undi,  nan, flase

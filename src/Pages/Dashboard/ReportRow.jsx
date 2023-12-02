@@ -1,5 +1,6 @@
 import { FaEye } from "react-icons/fa";
 import Modal from "./Modal";
+import UserModal from "./UserModal";
 
 const ReportRow = ({ index, report, truncateString }) => {
   return (
@@ -12,9 +13,8 @@ const ReportRow = ({ index, report, truncateString }) => {
             <div className="self-center">
               {report && report?.message && truncateString(report?.message)}
             </div>
-            {/* onClick={()=>document.getElementById('my_modal_1').showModal()} */}
-            <div onClick={()=>document.getElementById('my_modal_1').showModal()} className="self-center">
-              <FaEye></FaEye>
+            <div className="self-center">
+             <UserModal  title={report?.message}><FaEye></FaEye></UserModal>
             </div>(Click to see full feedback)
               <Modal message={report.message}></Modal>
           </div>

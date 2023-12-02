@@ -5,6 +5,8 @@ import { AuthContext } from "../../../Providers/AuthProvider";
 import swal from "sweetalert";
 import useAdmin from "../../../Hook/UseAdmin";
 import useSurveyor from "../../../Hook/useSurveyor";
+import useAxiosSecure from "../../../Hook/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const Navber = () => {
 
@@ -15,6 +17,13 @@ const Navber = () => {
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "cupcake"
   );
+
+
+ 
+
+
+
+
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
@@ -88,6 +97,9 @@ const Navber = () => {
      
     </>
   );
+
+  const role = user?.role
+  console.log(role)
 
   return (
     <div className="navbar bg-base-100">

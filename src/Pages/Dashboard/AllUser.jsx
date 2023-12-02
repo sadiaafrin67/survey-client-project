@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 const AllUser = () => {
   // const [value, setValue] = useState('')
   const axiosSecure = useAxiosSecure();
+  const [searchInput, setSearchInput] = useState("");
+  const [filterS, setFilterS] = useState(null);
 
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
@@ -16,10 +18,16 @@ const AllUser = () => {
     },
   });
 
+  useEffect(() => {
+    if (filterS === null && users && users.length > 0) {
+      setFilterS(users);
+    }
+  }, [filterS, users]);
+
   const handleSelectChange = (role, id) => {
     // setValue(role)
     // console.log(value)
-    axiosSecure.patch(`/users/admin/${id}`, {role: role}).then((res) => {
+    axiosSecure.patch(`/users/admin/${id}`, { role: role }).then((res) => {
       console.log(res.data);
       if (res.data.modifiedCount > 0) {
         refetch();
@@ -59,6 +67,27 @@ const AllUser = () => {
     });
   };
 
+  const handelSearchSubmit = (e) => {
+    e.preventDefault();
+
+    // Filter the data based on the search input (title or category)
+    const FilteredUsers = users?.filter((user) => {
+      const searchInputLower = (searchInput.toLowerCase()).replace(/\s/g, '');
+      const roleLower = (user?.role?.toLowerCase() || 'user').replace(/\s/g, '')
+      
+
+      return (
+        roleLower.includes(searchInputLower) 
+      );
+    });
+
+   
+    
+
+    setFilterS(FilteredUsers);
+    // console.log("Filtered Surveys:", filteredSurveys);
+  };
+
   // const handleMakeAdmin = (user) => {
   //   axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
   //     console.log(res.data);
@@ -77,10 +106,32 @@ const AllUser = () => {
 
   return (
     <div className="h-[100vh]">
-      <div className="flex justify-evenly  ">
-        <h2 className="text-3xl">All Users</h2>
-        <h2 className="text-3xl">Total Users: {users.length}</h2>
+      <div className="flex justify-evenly  my-8">
+        <h2 className="text-2xl">All Users</h2>
+        <h2 className="text-2xl">Total Users: {users.length}</h2>
       </div>
+
+      <form
+        className="w-full flex flex-1 justify-center items-center"
+        onSubmit={handelSearchSubmit}
+      >
+        <div className="my-8 ">
+          <input
+            className="border ml-5 w-[300px] p-2 text-center rounded-l-lg"
+            placeholder=" eg: admin, surveyor, pro user, user"
+            type="text"
+            name="search"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="btn rounded-l-lg bg-blue-950 text-white"
+          >
+            Search
+          </button>
+        </div>
+      </form>
 
       <div className="overflow-x-auto">
         <table className="table table-zebra h-full">
@@ -96,52 +147,54 @@ const AllUser = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
-              <tr key={user._id}>
-                <th>{index + 1}</th>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>
-                  {user.role === "admin" ? (
-                    "Admin"
-                  ) : (
-                    // <button
-                    //   onClick={() => handleMakeAdmin(user)}
-                    //   className="btn btn-lg "
-                    // >
-                    //   <FaUsers
-                    //     className="text-white
-                    //                    "
-                    //   ></FaUsers>
-                    // </button>
+            {filterS &&
+              filterS.length > 0 &&
+              filterS?.map((user, index) => (
+                <tr key={user._id}>
+                  <th>{index + 1}</th>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    {user.role === "admin" ? (
+                      "Admin"
+                    ) : (
+                      // <button
+                      //   onClick={() => handleMakeAdmin(user)}
+                      //   className="btn btn-lg "
+                      // >
+                      //   <FaUsers
+                      //     className="text-white
+                      //                    "
+                      //   ></FaUsers>
+                      // </button>
 
-                    <select
-                      defaultValue={user?.role}
-                      onChange={(e) =>
-                        handleSelectChange(e.target.value, user._id)
-                      }
+                      <select
+                        defaultValue={user?.role}
+                        onChange={(e) =>
+                          handleSelectChange(e.target.value, user._id)
+                        }
+                      >
+                        <option value="" disabled>
+                          Set Role
+                        </option>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+
+                        <option value="surveyor">Surveyor</option>
+                      </select>
+                    )}
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleDeleteUser(user)}
+                      className="btn btn-ghost btn-lg"
                     >
-                      <option value="" disabled>
-                        Set Role
-                      </option>
-                      <option value="user">User</option>
-                      <option value="admin">Admin</option>
-                  
-                      <option value="surveyor">Surveyor</option>
-                    </select>
-                  )}
-                </td>
-                <td>
-                  <button
-                    onClick={() => handleDeleteUser(user)}
-                    className="btn btn-ghost btn-lg"
-                  >
-                    <FaTrashAlt className="text-red-600"></FaTrashAlt>
-                  </button>
-                </td>
-                <td>{user.role}</td>
-              </tr>
-            ))}
+                      <FaTrashAlt className="text-red-600"></FaTrashAlt>
+                    </button>
+                  </td>
+                  <td>{user.role}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

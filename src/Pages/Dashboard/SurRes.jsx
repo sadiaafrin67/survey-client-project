@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import SurveyorChart from "../../components/SurveyorChart/SurveyorChart";
 
 const SurRes = () => {
   const { user } = useContext(AuthContext);
@@ -60,6 +61,9 @@ const SurRes = () => {
           </tbody>
         </table>
       </div>
+  <div className="flex justify-center">
+  <SurveyorChart chartData={filteredSurvey}></SurveyorChart>
+  </div>
     </div>
   );
 };

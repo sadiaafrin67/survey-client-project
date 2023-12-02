@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
-import { FaVoteYea } from "react-icons/fa";
+
 import { useQuery } from "@tanstack/react-query";
 import useAxiosOpen from "../../Hook/useAxiosOpen";
 import useAdmin from "../../Hook/UseAdmin";
@@ -9,6 +9,26 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
 import usePro from "../../Hook/usePro";
+import CustomPieChart from '../../components/ChartAdmin/CustomPieChart';
+import DetailChart from "../../components/DetailPageChart/DetailChart";
+
+
+function getDateExpired(inputDate) {
+  // Convert input date string to Date object
+  const inputDateObject = new Date(inputDate);
+
+  // Get the current date
+  const currentDate = new Date();
+  console.log(inputDateObject, currentDate);
+  // Compare the input date with the current date
+  if (inputDateObject < currentDate) {
+    // The input date is expired
+    return true;
+  } else {
+    // The input date is not expired
+    return false;
+  }
+}
 
 const SurveyDetail = () => {
   const [isAdmin] = useAdmin();
@@ -18,8 +38,12 @@ const SurveyDetail = () => {
   const [report, setReport] = useState("");
   const [comment, setComment] = useState("");
   const [commentedData, setCommentedData] = useState(null);
-
+  const [isReact, setIsReact] = useState(false);
   const [yesNo, setYesNo] = useState("");
+  const [isDateExpired, setIsDateExpired] = useState(false);
+  const [viewChart, setViewChart] = useState(false);
+
+  console.log(isDateExpired);
 
   console.log(isAdmin, isSurveyor);
 
@@ -42,7 +66,7 @@ const SurveyDetail = () => {
   });
   // console.log(survey);
 
-  const { data: commentedSurveys = [],   } = useQuery({
+  const { data: commentedSurveys = [] } = useQuery({
     queryKey: ["commentedSurveys"],
 
     queryFn: async () => {
@@ -50,19 +74,6 @@ const SurveyDetail = () => {
       return res.data;
     },
   });
-
-
-  useEffect(() => {
-    if( commentedSurveys && commentedData === null && commentedSurveys.length > 0){
-      setCommentedData(getCommentedData(commentedSurveys));
-      // console.log(getCommentedData(commentedSurveys));
-    }
-
-    // console.log('hlwwww')
-  }, [commentedData, commentedSurveys])
-
-  console.log(commentedData);
-
 
   const {
     title,
@@ -74,22 +85,42 @@ const SurveyDetail = () => {
     dislike,
     _id,
     like,
-     
   } = survey;
+
+  useEffect(() => {
+    if (
+      commentedSurveys &&
+      commentedData === null &&
+      commentedSurveys.length > 0
+    ) {
+      setCommentedData(getCommentedData(commentedSurveys));
+      // console.log(getCommentedData(commentedSurveys));
+    }
+
+    // console.log('hlwwww')
+  }, [commentedData, commentedSurveys]);
+
+  console.log(commentedData);
+
+  useEffect(() => {
+    console.log(survey);
+    if (survey) {
+      console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
+      setIsDateExpired(getDateExpired(survey?.deadline));
+    }
+  }, [survey]);
 
   function getCommentedData(survey) {
     const commentedData = [];
-  
-    survey.forEach(item => {
+
+    survey.forEach((item) => {
       if (item.comment && item.comment.length > 0) {
         commentedData.push(...item.comment);
       }
     });
-  
+
     return commentedData;
   }
-
-
 
   const handleLike = (id) => {
     axiosPublic.patch(`/like/${id}`).then(() => {
@@ -125,7 +156,7 @@ const SurveyDetail = () => {
   };
 
   const name = user?.displayName;
-  console.log(name)
+  console.log(name);
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   console.log(yesNo);
@@ -158,6 +189,8 @@ const SurveyDetail = () => {
         title: "Error",
         text: "Please select an option.",
       });
+
+      
     }
 
     try {
@@ -183,6 +216,7 @@ const SurveyDetail = () => {
             timer: 1500,
           });
           refetch();
+          setViewChart(true);
         }
       }
     } catch (error) {
@@ -258,8 +292,7 @@ const SurveyDetail = () => {
     }
   };
 
-
-   const handleComment = async (e) => {
+  const handleComment = async (e) => {
     e.preventDefault();
     if (!comment) {
       return Swal.fire({
@@ -286,7 +319,7 @@ const SurveyDetail = () => {
 
         console.log(res.data);
 
-        if (res.data ) {
+        if (res.data) {
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -336,9 +369,6 @@ const SurveyDetail = () => {
     return false;
   };
 
-
-
-
   return (
     <div className="card  bg-base-100 shadow-xl">
       <div className="card-body items-center text-center">
@@ -387,13 +417,13 @@ const SurveyDetail = () => {
             <div>
               <button
                 type="submit"
-                disabled={isReportButtonDesable()}
+                disabled={isReportButtonDesable() || isDateExpired}
                 className="btn rounded-lg bg-blue-950 text-white btn-sm mt-4"
               >
                 Vote For Participate
               </button>
-               <p className="mt-5 my-8 text-base font-semibold">
-            Total Votes:{" "}
+              <p className="mt-5 my-8 text-base font-semibold">
+                Total Votes:{" "}
                 <span className="text-[#2a5298] font-bold">{voted}</span>
               </p>
             </div>
@@ -419,12 +449,10 @@ const SurveyDetail = () => {
               />
             </div>
 
-          
-
             <div className="card-actions flex justify-center mt-6">
               <button
                 type="submit"
-                disabled={isReportButtonDesable()}
+                disabled={isReportButtonDesable() || isDateExpired}
                 className="btn rounded-lg bg-blue-950 text-white "
               >
                 Send Report
@@ -435,12 +463,26 @@ const SurveyDetail = () => {
 
         <div className="  text-center md:flex items-center">
           <div className="flex text-center  gap-4  ">
-            <button onClick={() => handleLike(id)} className="btn">
+            <button
+              disabled={isAdmin || isSurveyor || isReact || isDateExpired}
+              onClick={() => {
+                handleLike(id);
+                setIsReact(true);
+              }}
+              className="btn"
+            >
               <AiFillLike className="text-3xl"></AiFillLike>
               <div className="badge">{like}</div>
             </button>
 
-            <button onClick={() => handleDislike(id)} className="btn">
+            <button
+              disabled={isAdmin || isSurveyor || isReact || isDateExpired}
+              onClick={() => {
+                handleDislike(id);
+                setIsReact(true);
+              }}
+              className="btn"
+            >
               <AiFillDislike className="text-3xl"></AiFillDislike>
               <div className="badge">{dislike}</div>
             </button>
@@ -460,7 +502,6 @@ const SurveyDetail = () => {
                 required
               />{" "}
               <button
-
                 type="submit"
                 disabled={isPro ? false : true}
                 className={`rounded-r-lg text-white py-4 font-medium px-3 ${
@@ -471,31 +512,32 @@ const SurveyDetail = () => {
               </button>
             </div>
           </form>
-        
-
         </div>
 
         <p className="text-2xl font-bold my-5">Comments</p>
 
-        {
-          commentedData?.map((singleComment, index) => {
-            return (
-             <div className="flex gap-3 items-center" key={index}>
+        {commentedData?.map((singleComment, index) => {
+          return (
+            <div className="flex gap-3 items-center" key={index}>
               <div>
                 <>{singleComment.email}</>
               </div>
               <div>
-               <input type="text" disabled value={singleComment.message} placeholder="Type here" className="input rounded-lg input-bordered input-md w-full max-w-xs text-[#2a5298]" />
-
+                <input
+                  type="text"
+                  disabled
+                  value={singleComment.message}
+                  placeholder="Type here"
+                  className="input rounded-lg input-bordered input-md w-full max-w-xs text-[#2a5298]"
+                />
               </div>
-              
-             </div>
-            )
-          })
-        }
-       
-
+            </div>
+          );
+        })}
       </div>
+    <div className="flex justify-center">
+    {/* <DetailChart voted={survey}></DetailChart> */}
+    </div>
     </div>
   );
 };

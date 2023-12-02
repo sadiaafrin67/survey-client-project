@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Modal = ({ data, children, title }) => {
+const UserModal = ({ data, children, title }) => {
   const [open, setOpen] = useState(false);
 
   const openModal = () => {
@@ -54,8 +54,8 @@ const Modal = ({ data, children, title }) => {
                 <span className="sr-only">Close modal</span>
               </button>
               <div className="p-4 md:p-5 text-center"><div>
-                <h3 className="text-xl font-bold text-blue-800 mb-6">{title}</h3>
-                <p className="text-sm font-medium">Admin Feedback: {data}</p>
+                <h3 className="text-xl font-bold text-blue-800 mb-6">User Feedback: {title}</h3>
+                {/* <p className="text-sm font-medium">Admin Feedback: {data}</p> */}
                 </div></div>
             </div>
           </div>
@@ -65,4 +65,4 @@ const Modal = ({ data, children, title }) => {
   );
 };
 
-export default Modal;
+export default UserModal;

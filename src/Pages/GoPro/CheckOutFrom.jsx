@@ -5,6 +5,8 @@ import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import swal from "sweetalert";
 import Swal from "sweetalert2";
+import useAdmin from "../../Hook/UseAdmin";
+import useSurveyor from "../../Hook/useSurveyor";
 
 const CheckOutFrom = () => {
   const [error, setError] = useState("");
@@ -15,6 +17,8 @@ const CheckOutFrom = () => {
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
   const price = 99;
+  const [isAdmin] = useAdmin()
+  const [isSurveyor] = useSurveyor()
 
   useEffect(() => {
     if (price > 0) {
@@ -118,7 +122,7 @@ const CheckOutFrom = () => {
       <button
         className="btn bg-blue-950 rounded-lg my-4 btn-sm text-white"
         type="submit"
-        disabled={!stripe || !clientSecret || !user}
+        disabled={!stripe || !clientSecret || !user || isAdmin || isSurveyor}
       >
         Pay
       </button>

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
+import CustomPieChart from "../../components/ChartAdmin/CustomPieChart";
 
 const Response = () => {
   const axiosSecure = useAxiosSecure();
@@ -50,6 +51,10 @@ const Response = () => {
           </tbody>
         </table>
       </div>
+
+    <div className="flex justify-center">
+    <CustomPieChart chartData={allResponse}></CustomPieChart>
+    </div>
     </div>
   );
 };
