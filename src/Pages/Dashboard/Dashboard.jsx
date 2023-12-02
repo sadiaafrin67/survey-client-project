@@ -39,7 +39,7 @@ const Dashboard = () => {
                 <NavLink to="/dashboard/payment"><FaHandHoldingDollar className="text-xl"></FaHandHoldingDollar> Payment Information</NavLink>
               </li>
               <li className="mt-3">
-                <NavLink to="/dashboard/status"><BsArrowRightCircleFill className="text-xl"></BsArrowRightCircleFill>Status</NavLink>
+                <NavLink to="/dashboard/status"><BsArrowRightCircleFill className="text-xl"></BsArrowRightCircleFill>Control Pannel</NavLink>
               </li>
               <li className="mt-3">
                 <NavLink to="/dashboard/response"><AiFillWechat className="text-xl"></AiFillWechat> Response</NavLink>

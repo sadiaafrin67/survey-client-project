@@ -90,8 +90,9 @@ const AllUser = () => {
               <th></th>
               <th>Name</th>
               <th>Email</th>
-              <th>Role</th>
+              <th>Set Role</th>
               <th>Action</th>
+              <th>Role</th>
             </tr>
           </thead>
           <tbody>
@@ -138,6 +139,7 @@ const AllUser = () => {
                     <FaTrashAlt className="text-red-600"></FaTrashAlt>
                   </button>
                 </td>
+                <td>{user.role}</td>
               </tr>
             ))}
           </tbody>

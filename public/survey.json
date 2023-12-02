@@ -6,7 +6,8 @@
       "deadline": "2023-12-15",
       "category": "Workplace",
       "voted": 120,
-      "dislike": 4 
+      "dislike": 4 ,
+      "email": "sadia@aa.com"
      
     },
     {
@@ -16,7 +17,8 @@
       "deadline": "2023-12-20",
       "category": "Health",
       "voted": 85,
-      "dislike": 6
+      "dislike": 6,
+      "email": "sadia@aa.com"
     },
     {
       "title": "Technology Usage Patterns",
@@ -25,7 +27,8 @@
       "deadline": "2023-12-18",
       "category": "Technology",
       "voted": 150,
-      "dislike": 2
+      "dislike": 2,
+      "email": "sadia@aa.com"
     },
     {
       "title": "Environmental Awareness Survey",
@@ -34,7 +37,8 @@
       "deadline": "2023-12-22",
       "category": "Environment",
       "voted": 110,
-      "dislike": 5
+      "dislike": 5,
+      "email": "sadia@aa.com"
     },
     {
       "title": "Education and Learning Preferences",
@@ -43,7 +47,8 @@
       "deadline": "2023-12-17",
       "category": "Education",
       "voted": 95,
-      "dislike": 9
+      "dislike": 9,
+      "email": "sadia@aa.com"
     },
     {
       "title": "Customer Satisfaction Feedback",
@@ -52,7 +57,8 @@
       "deadline": "2023-12-19",
       "category": "Customer Service",
       "voted": 130,
-      "dislike": 2
+      "dislike": 2,
+      "email": "sadia@aa.com"
     },
     {
         "title": "Product Feedback Survey",
@@ -61,7 +67,8 @@
         "deadline": "2023-12-25",
         "category": "Product",
         "voted": 90,
-        "dislike": 4
+        "dislike": 4,
+        "email": "sadia@aa.com"
       },
       {
         "title": "Social Media Usage Survey",
@@ -70,7 +77,8 @@
         "deadline": "2023-12-28",
         "category": "Social Media",
         "voted": 110,
-        "dislike": 3
+        "dislike": 3,
+        "email": "sadia@aa.com"
       },
       {
         "title": "Financial Habits and Goals",
@@ -79,7 +87,8 @@
         "deadline": "2023-12-30",
         "category": "Finance",
         "voted": 80,
-        "dislike": 2
+        "dislike": 2,
+        "email": "sadia@aa.com"
       },
       {
         "title": "Travel Preferences Survey",
@@ -88,7 +97,8 @@
         "deadline": "2023-12-23",
         "category": "Travel",
         "voted": 95,
-        "dislike": 4
+        "dislike": 4,
+        "email": "sadia@aa.com"
       },
       {
         "title": "Fitness and Wellness Survey",
@@ -97,7 +107,8 @@
         "deadline": "2023-12-27",
         "category": "Wellness",
         "voted": 120,
-        "dislike": 2
+        "dislike": 2,
+        "email": "sadia@aa.com"
       },
       {
         "title": "Community Engagement Survey",
@@ -106,7 +117,8 @@
         "deadline": "2023-12-29",
         "category": "Community",
         "voted": 105,
-        "dislike": 2
+        "dislike": 2,
+        "email": "sadia@aa.com"
       }
   ]
   

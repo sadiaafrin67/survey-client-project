@@ -74,12 +74,14 @@ const StatusTableRow = ({ surveyor, index }) => {
             <button onClick={() => setToggole(!toggole)} className="btn bg-blue-950 text-white rounded-lg btn-sm">
               Unpublish
             </button>
-            <div className={`absolute w-[400px] right-0 top-full z-50 p-5 bg-blue-300 ${toggole ? "block" : "hidden"}`}>
+            <div className={`absolute w-[400px] right-0 top-full z-50 p-5 bg-blue-100 ${toggole ? "block" : "hidden"}`}>
               <form onSubmit={handleFeedback}>
-                <input name='feedback' className="border w-full p-5" type="text"  id="" />
-                <button className="btn bg-blue-950 text-white rounded-lg btn-sm">
+                <input name='feedback'   className="block  mx-auto p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md " type="text"  id="" />
+               <div className="text-center mt-3">
+               <button className="btn bg-blue-950  text-white rounded-lg btn-sm">
                   Send feedback
                 </button>
+               </div>
               </form>
             </div>
           </div>
@@ -90,3 +92,13 @@ const StatusTableRow = ({ surveyor, index }) => {
 };
 
 export default StatusTableRow;
+
+
+
+
+
+
+
+
+
+

@@ -2,13 +2,12 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
-
+import { Link, useNavigate } from "react-router-dom";
 
 const Creation = () => {
-
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
-  
+  const navigate = useNavigate();
 
   const handleSurvey = (e) => {
     e.preventDefault();
@@ -27,26 +26,27 @@ const Creation = () => {
       category,
       voted: 0,
       dislike: 0,
-      status: 'Pending',
-      email: user?.email
+      status: "Pending",
+      email: user?.email,
+      like: 0,
+      report: [],
+      name: user?.displayName || "Annonymous",
     };
 
     console.log(data);
 
-    axiosSecure.post("/surveys", data)
-    .then((res) => {
-      if(res.data.insertedId){
+    axiosSecure.post("/surveys", data).then((res) => {
+      if (res.data.insertedId) {
         Swal.fire({
-          title: 'Success!',
-          text: 'Your Survey Added Successfully',
-          icon: 'success',
-          confirmButtonText: 'Ok'
-        })
+          title: "Success!",
+          text: "Your survey is pending for approval, you will be notified",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
+        navigate("/");
       }
-    })
+    });
   };
-
-  
 
   return (
     <div>

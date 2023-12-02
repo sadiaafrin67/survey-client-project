@@ -1,11 +1,18 @@
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 
 
 const UpdateSurvey = () => {
 
   const axiosSecure = useAxiosSecure();
+  const data = useLoaderData()
+  console.log(data._id)
+  const navigate = useNavigate()
+
+
+
   
 
   const handleSurvey = (e) => {
@@ -17,7 +24,7 @@ const UpdateSurvey = () => {
     const deadline = form.deadline.value;
     const category = form.category.value;
 
-    const data = {
+    const dataNew = {
       title,
       description,
       question,
@@ -28,9 +35,9 @@ const UpdateSurvey = () => {
   
     };
 
-    console.log(data);
+    console.log(dataNew);
 
-    axiosSecure.post("/surveys", data)
+    axiosSecure.patch(`/surveys/${data._id}`, dataNew)
     .then((res) => {
       if(res.data.modifiedCount > 0){
         Swal.fire({
@@ -39,6 +46,7 @@ const UpdateSurvey = () => {
           icon: 'success',
           confirmButtonText: 'Ok'
         })
+        navigate('/')
       }
     })
   };
@@ -50,7 +58,7 @@ const UpdateSurvey = () => {
       <div>
         <div className="bg-[#f1f3f5] rounded-xl md:p-24 p-4 my-20">
           <h2 className="text-3xl mb-10 text-center font-extrabold">
-            Add Your <span className="text-[#1e3c72]">Survey</span>
+           Update Your <span className="text-[#1e3c72]">Survey</span>
           </h2>
           <form onSubmit={handleSurvey}>
             <div className="md:flex gap-4 mb-8">
@@ -62,7 +70,7 @@ const UpdateSurvey = () => {
                   <input
                     type="text"
                     placeholder="Add a title"
-                    defaultValue='title'
+                    defaultValue={data?.title}
                     name="title"
                     className="input form-border input-bordered w-full"
                   />
@@ -79,7 +87,7 @@ const UpdateSurvey = () => {
                     type="text"
                     required
                     placeholder="Ask a question"
-                    defaultValue='question'
+                    defaultValue={data?.question}
                     name="question"
                     className="input  form-border input-bordered w-full"
                   />
@@ -98,7 +106,7 @@ const UpdateSurvey = () => {
                     required
                     placeholder="Deadline"
                     name="deadline"
-                    defaultValue='deadline'
+                    defaultValue={data?.deadline}
                     className="input  form-border input-bordered w-full"
                   />
                 </label>
@@ -114,7 +122,7 @@ const UpdateSurvey = () => {
                     required
                     placeholder="Description"
                     name="description"
-                    defaultValue='description'
+                    defaultValue={data?.description}
                     className="input form-border  input-bordered w-full"
                   />
                 </label>
@@ -133,7 +141,7 @@ const UpdateSurvey = () => {
                     type="text"
                     placeholder="Category"
                     name="category"
-                    defaultValue='category'
+                    defaultValue={data?.category}
                     className="input form-border  input-bordered w-full"
                   />
                 </label>

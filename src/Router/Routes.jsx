@@ -94,6 +94,11 @@ const Routes = createBrowserRouter([
                 element: <PrivateRoute><MySurvey></MySurvey></PrivateRoute>
             },
             {
+                path: 'update/:id',
+                element: <PrivateRoute><UpdateSurvey></UpdateSurvey></PrivateRoute>,
+                loader: ({params}) => fetch(`http://localhost:5000/surveys/${params.id}`)
+            },
+            {
                 path: 'userFedd',
                 element: <PrivateRoute><UserFeed></UserFeed></PrivateRoute>
             },
