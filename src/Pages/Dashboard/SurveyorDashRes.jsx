@@ -57,7 +57,7 @@ const SurveyorDashRes = () => {
             </tr>
           </thead>
           <tbody>
-            {votedUser.length > 0 && votedUser?.map((user, index) => {
+            {votedUser && votedUser.length > 0 && votedUser?.map((user, index) => {
                 return (
                   <tr key={index} className="bg-base-200">
                     <th>1</th>

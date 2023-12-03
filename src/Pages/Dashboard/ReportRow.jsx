@@ -15,7 +15,7 @@ const ReportRow = ({ index, report, truncateString }) => {
             </div>
             <div className="self-center">
              <UserModal  title={report?.message}><FaEye></FaEye></UserModal>
-            </div>(Click to see full feedback)
+            </div>(Click the Eye icon see full feedback)
               <Modal message={report.message}></Modal>
           </div>
         </td>

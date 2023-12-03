@@ -26,7 +26,6 @@ import DetailChart from "../../components/DetailPageChart/DetailChart";
 //   }
 // }
 
-
 function getDateExpired(inputDate) {
   // Convert input date string to Date object
   const inputDateObject = new Date(inputDate);
@@ -42,12 +41,11 @@ function getDateExpired(inputDate) {
 
   // Check if the input date is earlier than the current date
   if (inputDateObject < currentDate) {
-    return true;  // Input date is expired
+    return true; // Input date is expired
   } else {
-    return false;  // Input date is not expired
+    return false; // Input date is not expired
   }
 }
-
 
 const SurveyDetail = () => {
   const [isAdmin] = useAdmin();
@@ -70,7 +68,6 @@ const SurveyDetail = () => {
 
   const { id } = useParams();
   console.log(id);
-
 
   const {
     data: survey = [],
@@ -95,7 +92,6 @@ const SurveyDetail = () => {
       const responseData = res.data;
       const convertedData = getCommentedData(responseData);
       return convertedData;
-      
     },
   });
 
@@ -109,7 +105,7 @@ const SurveyDetail = () => {
     dislike,
     _id,
     like,
-    
+
     timestamp,
   } = survey;
 
@@ -128,7 +124,6 @@ const SurveyDetail = () => {
   //   // console.log('hlwwww')
   // }, [commentedData, commentedSurveys]);
 
-
   // useEffect(() => {
   //   setCommentedData(getCommentedData(commentedSurveys));
 
@@ -140,7 +135,6 @@ const SurveyDetail = () => {
   useEffect(() => {
     console.log(survey);
     if (survey) {
-    
       setIsDateExpired(getDateExpired(survey?.deadline));
     }
   }, [survey]);
@@ -238,14 +232,13 @@ const SurveyDetail = () => {
           email: user?.email,
           votedIn: yesNo,
           name: user?.displayName || "Annonymous",
-       
         };
         console.log(votedInfo);
 
         const res = await axiosPublic.put(`/updateSurvey/${id}`, votedInfo);
 
         console.log(res.data);
-        if (res.data.modifiedCount > 0) {
+        if (res.data.result.modifiedCount > 0) {
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -340,7 +333,6 @@ const SurveyDetail = () => {
         title: "Error",
         text: "Please write your comment",
       });
-    
     }
     try {
       // Assuming 'report' is a variable in the scope
@@ -368,9 +360,8 @@ const SurveyDetail = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-          setComment('');
+          setComment("");
           refetchComment();
-
         }
       } else {
         Swal.fire({
@@ -380,7 +371,7 @@ const SurveyDetail = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        refetchComment()
+        refetchComment();
       }
     } catch (error) {
       console.error("An error occurred:", error);
@@ -394,7 +385,7 @@ const SurveyDetail = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-      refetchComment()
+      refetchComment();
     }
   };
 
@@ -454,7 +445,10 @@ const SurveyDetail = () => {
                 className="radio"
                 checked={yesNo === "yes"}
               />
-              <button className="btn btn-xs rounded-lg bg-blue-950 text-white">
+              <button
+                disabled={isReportButtonDesable() || isDateExpired}
+                className="btn btn-xs rounded-lg bg-blue-950 text-white"
+              >
                 Vote
               </button>
             </div>
@@ -468,7 +462,10 @@ const SurveyDetail = () => {
                 className="radio"
                 checked={yesNo === "no"}
               />
-              <button className="btn btn-xs rounded-lg bg-blue-950 text-white">
+              <button
+                disabled={isReportButtonDesable() || isDateExpired}
+                className="btn btn-xs rounded-lg bg-blue-950 text-white"
+              >
                 Vote
               </button>
             </div>
@@ -486,11 +483,15 @@ const SurveyDetail = () => {
               <div className="flex gap-4 justify-between">
                 <p className="mt-5 my-8 text-base font-semibold">
                   Total Votes For Yes:{" "}
-                  <span className="text-[#2a5298] font-bold">{survey?.yesVote}</span>
+                  <span className="text-[#2a5298] font-bold">
+                    {survey?.yesVote}
+                  </span>
                 </p>
                 <p className="mt-5 my-8 text-base font-semibold">
                   Total Votes For No:{" "}
-                  <span className="text-[#2a5298] font-bold">{survey?.noVote}</span>
+                  <span className="text-[#2a5298] font-bold">
+                    {survey?.noVote}
+                  </span>
                 </p>
               </div>
 
@@ -622,7 +623,7 @@ const SurveyDetail = () => {
         })} */}
       </div>
 
-      <form  onSubmit={handleComment}>
+      <form onSubmit={handleComment}>
         <div>
           <label
             htmlFor="default-search"
@@ -640,14 +641,15 @@ const SurveyDetail = () => {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder="write your comment"
-
               required
             />
             <button
               type="submit"
-              className="text-white absolute end-2.5 bottom-2.5 bg-blue-950 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              disabled={isPro ? false : true}
+              className={`text-white absolute end-2.5 bottom-2.5 bg-blue-950 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 rounded-r-lg ${isPro ? "bg-blue-950" : "bg-gray-300"
+              }`}
             >
-              Comment
+             {isPro ? "Comment" : "Only Pro User Can Comment"}
             </button>
           </div>
         </div>

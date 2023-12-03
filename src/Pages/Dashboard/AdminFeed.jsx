@@ -75,7 +75,7 @@ const AdminFeed = () => {
                     className="self-center"
                   >
                     <Modal data={feedback?.feedback} title={feedback?.title}><FaEye></FaEye></Modal>
-                  </div>(Click to see full feedback)
+                  </div>(Click the Eye icon see full feedback)
              
                 </div>
               </td>
