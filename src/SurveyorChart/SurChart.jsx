@@ -18,7 +18,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 
 
 
-const DetailChart = ({voted}) => {
+const SurChart = ({voted}) => {
 
   console.log(voted)
 
@@ -34,6 +34,7 @@ const DetailChart = ({voted}) => {
   
   const totalYes = voted?.yesVote
   const totalNo = voted?.noVote
+  console.log(totalYes, totalNo)
 
 
   const data = [
@@ -78,4 +79,4 @@ const DetailChart = ({voted}) => {
   );
 };
 
-export default DetailChart;
+export default SurChart;

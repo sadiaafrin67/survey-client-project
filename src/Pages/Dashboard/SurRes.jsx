@@ -36,7 +36,7 @@ const SurRes = () => {
     <div>
       <h2 className="text-center font-bold md:text-2xl text-base my-10 text-[#2a5298]">See Your Posted Survey Categories Response From Users</h2>
       <div className="overflow-x-auto">
-        <table className="table">
+        <table className="table ">
           {/* head */}
           <thead>
             <tr>
@@ -54,7 +54,7 @@ const SurRes = () => {
               <th>{index +1 }</th>
               <td>{item?.title}</td>
               <td>{item?.category}</td>
-              <td><Link to={`/dashboard/yoursurres/${item?._id}`}><button className="btn btn-xs bg-blue-950 text-white">View</button></Link></td>
+              <td><Link to={`/dashboard/yoursurres/${item?._id}`}><button  className="btn btn-xs bg-blue-950 text-white">View</button></Link></td>
              
             </tr>)
               })
@@ -63,9 +63,7 @@ const SurRes = () => {
           </tbody>
         </table>
       </div>
-  <div className="flex justify-center">
-  <SurveyorChart chartData={filteredSurvey}></SurveyorChart>
-  </div>
+
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 
 const axiosSecure = axios.create({
-  baseURL: "https://survey-nest-server.vercel.app",
+  baseURL: "http://localhost:5000",
 });
 
 const useAxiosSecure = () => {

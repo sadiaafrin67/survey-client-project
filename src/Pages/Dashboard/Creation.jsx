@@ -28,9 +28,13 @@ const Creation = () => {
       dislike: 0,
       status: "Pending",
       email: user?.email,
+      yesVote: 0,
+      noVote: 0,
       like: 0,
       report: [],
       name: user?.displayName || "Annonymous",
+     
+
     };
 
     console.log(data);

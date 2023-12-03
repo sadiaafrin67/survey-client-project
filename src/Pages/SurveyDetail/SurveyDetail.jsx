@@ -9,26 +9,45 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
 import usePro from "../../Hook/usePro";
-import CustomPieChart from '../../components/ChartAdmin/CustomPieChart';
+import CustomPieChart from "../../components/ChartAdmin/CustomPieChart";
 import DetailChart from "../../components/DetailPageChart/DetailChart";
+
+// function getDateExpired(inputDate) {
+//   // Convert input date string to Date object
+//   const inputDateObject = new Date(inputDate);
+
+//   // Get the current date
+//   const currentDate = new Date();
+//   console.log(inputDateObject, currentDate);
+//   if (inputDateObject < currentDate) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
 
 function getDateExpired(inputDate) {
   // Convert input date string to Date object
   const inputDateObject = new Date(inputDate);
 
+  // Set the time of the input date to 11:59:59 PM
+  inputDateObject.setHours(23, 59, 59, 999);
+
   // Get the current date
   const currentDate = new Date();
+
+  // Log the inputDateObject and currentDate for debugging or information
   console.log(inputDateObject, currentDate);
-  // Compare the input date with the current date
+
+  // Check if the input date is earlier than the current date
   if (inputDateObject < currentDate) {
-    // The input date is expired
-    return true;
+    return true;  // Input date is expired
   } else {
-    // The input date is not expired
-    return false;
+    return false;  // Input date is not expired
   }
 }
+
 
 const SurveyDetail = () => {
   const [isAdmin] = useAdmin();
@@ -51,6 +70,8 @@ const SurveyDetail = () => {
 
   const { id } = useParams();
   console.log(id);
+
+
   const {
     data: survey = [],
     refetch,
@@ -64,14 +85,17 @@ const SurveyDetail = () => {
       return res.data.result;
     },
   });
-  // console.log(survey);
+  console.log(survey);
 
-  const { data: commentedSurveys = [] } = useQuery({
+  const { data: commentedSurveys = [], refetch: refetchComment } = useQuery({
     queryKey: ["commentedSurveys"],
 
     queryFn: async () => {
       const res = await axiosPublic.get("/surveys");
-      return res.data;
+      const responseData = res.data;
+      const convertedData = getCommentedData(responseData);
+      return convertedData;
+      
     },
   });
 
@@ -85,28 +109,38 @@ const SurveyDetail = () => {
     dislike,
     _id,
     like,
-    timestamp
+    
+    timestamp,
   } = survey;
 
-  useEffect(() => {
-    if (
-      commentedSurveys &&
-      commentedData === null &&
-      commentedSurveys.length > 0
-    ) {
-      setCommentedData(getCommentedData(commentedSurveys));
-      // console.log(getCommentedData(commentedSurveys));
-    }
+  // console.log(survey);
 
-    // console.log('hlwwww')
-  }, [commentedData, commentedSurveys]);
+  // useEffect(() => {
+  //   if (
+  //     commentedSurveys &&
+  //     commentedData === null &&
+  //     commentedSurveys.length > 0
+  //   ) {
+  //     setCommentedData(getCommentedData(commentedSurveys));
+  //     // console.log(getCommentedData(commentedSurveys));
+  //   }
+
+  //   // console.log('hlwwww')
+  // }, [commentedData, commentedSurveys]);
+
+
+  // useEffect(() => {
+  //   setCommentedData(getCommentedData(commentedSurveys));
+
+  //   // console.log('hlwwww')
+  // }, [commentedData, commentedSurveys]);
 
   console.log(commentedData);
 
   useEffect(() => {
     console.log(survey);
     if (survey) {
-      console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
+    
       setIsDateExpired(getDateExpired(survey?.deadline));
     }
   }, [survey]);
@@ -122,6 +156,8 @@ const SurveyDetail = () => {
 
     return commentedData;
   }
+
+  console.log(survey);
 
   const handleLike = (id) => {
     axiosPublic.patch(`/like/${id}`).then(() => {
@@ -153,6 +189,7 @@ const SurveyDetail = () => {
   // };
 
   const handleOptionChange = (e) => {
+    console.log(e.target.value);
     setYesNo(e.target.value);
   };
 
@@ -190,8 +227,6 @@ const SurveyDetail = () => {
         title: "Error",
         text: "Please select an option.",
       });
-
-      
     }
 
     try {
@@ -202,6 +237,8 @@ const SurveyDetail = () => {
         const votedInfo = {
           email: user?.email,
           votedIn: yesNo,
+          name: user?.displayName || "Annonymous",
+       
         };
         console.log(votedInfo);
 
@@ -227,7 +264,8 @@ const SurveyDetail = () => {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: `${errorMessage}`,
+        // text: `${errorMessage}`,
+        text: "You have already voted.",
       });
     }
   };
@@ -295,12 +333,14 @@ const SurveyDetail = () => {
 
   const handleComment = async (e) => {
     e.preventDefault();
+
     if (!comment) {
       return Swal.fire({
         icon: "error",
         title: "Error",
         text: "Please write your comment",
       });
+    
     }
     try {
       // Assuming 'report' is a variable in the scope
@@ -328,7 +368,9 @@ const SurveyDetail = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-          refetch();
+          setComment('');
+          refetchComment();
+
         }
       } else {
         Swal.fire({
@@ -338,6 +380,7 @@ const SurveyDetail = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        refetchComment()
       }
     } catch (error) {
       console.error("An error occurred:", error);
@@ -351,6 +394,7 @@ const SurveyDetail = () => {
         showConfirmButton: false,
         timer: 1500,
       });
+      refetchComment()
     }
   };
 
@@ -410,7 +454,9 @@ const SurveyDetail = () => {
                 className="radio"
                 checked={yesNo === "yes"}
               />
-                <button className="btn btn-xs rounded-lg bg-blue-950 text-white">Vote</button>
+              <button className="btn btn-xs rounded-lg bg-blue-950 text-white">
+                Vote
+              </button>
             </div>
             <div className="flex justify-center gap-2 mt-3">
               <label className="text-base font-medium">No</label>
@@ -422,7 +468,9 @@ const SurveyDetail = () => {
                 className="radio"
                 checked={yesNo === "no"}
               />
-              <button className="btn btn-xs rounded-lg bg-blue-950 text-white">Vote</button>
+              <button className="btn btn-xs rounded-lg bg-blue-950 text-white">
+                Vote
+              </button>
             </div>
 
             <div>
@@ -434,27 +482,34 @@ const SurveyDetail = () => {
                 Vote For Participate
               </button>
 
-           
-              <p className="mt-5 my-8 text-base font-semibold">
-                Total Votes:{" "}
-                <span className="text-[#2a5298] font-bold">{voted}</span>
-              </p>
-              
-                     {/* for yes no */}
-                     <div className="flex gap-4 justify-between">
-              <p className="mt-5 my-8 text-base font-semibold">
-                Total Votes For Yes:{" "}
-                <span className="text-[#2a5298] font-bold"></span>
-              </p>
-              <p className="mt-5 my-8 text-base font-semibold">
-                Total Votes For No:{" "}
-                <span className="text-[#2a5298] font-bold"></span>
-              </p>
+              {/* for yes no */}
+              <div className="flex gap-4 justify-between">
+                <p className="mt-5 my-8 text-base font-semibold">
+                  Total Votes For Yes:{" "}
+                  <span className="text-[#2a5298] font-bold">{survey?.yesVote}</span>
+                </p>
+                <p className="mt-5 my-8 text-base font-semibold">
+                  Total Votes For No:{" "}
+                  <span className="text-[#2a5298] font-bold">{survey?.noVote}</span>
+                </p>
               </div>
 
-            
-                   
-            
+              <p className="mt-5 my-8 text-base font-semibold">
+                Grand Votes:{" "}
+                <span className="text-[#2a5298] font-bold">{voted}</span>
+              </p>
+
+              {/* for yes no
+              <div className="flex gap-4 justify-between">
+                <p className="mt-5 my-8 text-base font-semibold">
+                  Total Votes For Yes:{" "}
+                  <span className="text-[#2a5298] font-bold"></span>
+                </p>
+                <p className="mt-5 my-8 text-base font-semibold">
+                  Total Votes For No:{" "}
+                  <span className="text-[#2a5298] font-bold"></span>
+                </p>
+              </div> */}
             </div>
 
             {/* <div className="card-actions flex justify-center mt-6">
@@ -493,7 +548,7 @@ const SurveyDetail = () => {
         <div className="  text-center md:flex items-center">
           <div className="flex text-center  gap-4  ">
             <button
-              disabled={isAdmin || isSurveyor  || isDateExpired}
+              disabled={isAdmin || isSurveyor || isDateExpired}
               onClick={() => {
                 handleLike(id);
                 setIsReact(true);
@@ -505,7 +560,7 @@ const SurveyDetail = () => {
             </button>
 
             <button
-              disabled={isAdmin || isSurveyor  || isDateExpired}
+              disabled={isAdmin || isSurveyor || isDateExpired}
               onClick={() => {
                 handleDislike(id);
                 setIsReact(true);
@@ -542,15 +597,8 @@ const SurveyDetail = () => {
             </div>
           </form> */}
         </div>
-   
 
-   {/* for test */}
-    
-           
-
-
-         
-
+        {/* for test */}
 
         {/* <p className="text-2xl font-bold my-5">Comments</p>
 
@@ -572,58 +620,63 @@ const SurveyDetail = () => {
             </div>
           );
         })} */}
-
-
-
       </div>
 
-      <form onSubmit={handleComment}>   
-  <div>
-  <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Comment</label>
-  <div className="relative md:w-1/2 w-full mx-auto ">
-    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-      
-    </div>
-    <input 
-   
-    id="default-search" 
-    className="block w-full  p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-    type="text"
-    name="comment"
-    value={comment}
-    onChange={(e) => setComment(e.target.value)}
-    placeholder="write your comment"
-    required />
-    <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-blue-950 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Comment</button>
-  </div>
-</div>
+      <form  onSubmit={handleComment}>
+        <div>
+          <label
+            htmlFor="default-search"
+            className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+          >
+            Comment
+          </label>
+          <div className="relative md:w-1/2 w-full mx-auto ">
+            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"></div>
+            <input
+              id="default-search"
+              className="block w-full  p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="text"
+              name="comment"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="write your comment"
 
-</form>
+              required
+            />
+            <button
+              type="submit"
+              className="text-white absolute end-2.5 bottom-2.5 bg-blue-950 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Comment
+            </button>
+          </div>
+        </div>
+      </form>
 
-<p className="text-2xl font-bold my-5 text-center">Comments</p>
+      <p className="text-2xl font-bold my-5 text-center">Comments</p>
 
-{commentedData?.map((singleComment, index) => {
-  return (
-    <div className="flex gap-3  justify-center items-center" key={index}>
-      <div className="">
-        <>{singleComment.email}</>
+      {commentedSurveys?.map((singleComment, index) => {
+        return (
+          <div className="flex gap-3  justify-center items-center" key={index}>
+            <div className="">
+              <>{singleComment.email}</>
+            </div>
+            <div>
+              <input
+                type="text"
+                disabled
+                value={singleComment.message}
+                placeholder="Type here"
+                className="input mb-5 rounded-lg input-bordered input-md w-full max-w-xs text-[#2a5298]"
+              />
+            </div>
+          </div>
+        );
+      })}
+
+      <div className="flex justify-center">
+        <DetailChart voted={survey}></DetailChart>
       </div>
-      <div>
-        <input
-          type="text"
-          disabled
-          value={singleComment.message}
-          placeholder="Type here"
-          className="input mb-5 rounded-lg input-bordered input-md w-full max-w-xs text-[#2a5298]"
-        />
-      </div>
-    </div>
-  );
-})}
-
-    <div className="flex justify-center">
-    {/* <DetailChart voted={survey}></DetailChart> */}
-    </div>
     </div>
   );
 };

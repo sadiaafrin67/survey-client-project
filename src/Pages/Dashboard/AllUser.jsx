@@ -14,15 +14,14 @@ const AllUser = () => {
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
-      return res.data;
+      const data = res.data;
+      setFilterS(data);
+      
+      return data;
     },
   });
 
-  useEffect(() => {
-    if (filterS === null && users && users.length > 0) {
-      setFilterS(users);
-    }
-  }, [filterS, users]);
+ 
 
   const handleSelectChange = (role, id) => {
     // setValue(role)
@@ -30,7 +29,7 @@ const AllUser = () => {
     axiosSecure.patch(`/users/admin/${id}`, { role: role }).then((res) => {
       console.log(res.data);
       if (res.data.modifiedCount > 0) {
-        refetch();
+   
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -38,6 +37,7 @@ const AllUser = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        refetch();
       }
     });
   };
@@ -55,12 +55,13 @@ const AllUser = () => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/users/${user._id}`).then((res) => {
           if (res.data.deletedCount > 0) {
-            refetch();
+      
             Swal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
               icon: "success",
             });
+            refetch()
           }
         });
       }

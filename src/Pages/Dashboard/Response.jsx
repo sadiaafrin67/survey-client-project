@@ -55,7 +55,7 @@ const Response = () => {
       </div>
 
     <div className="flex justify-center">
-    <CustomPieChart chartData={allResponse}></CustomPieChart>
+
     </div>
     </div>
   );
