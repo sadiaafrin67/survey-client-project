@@ -410,6 +410,7 @@ const SurveyDetail = () => {
                 className="radio"
                 checked={yesNo === "yes"}
               />
+                <button className="btn btn-xs rounded-lg bg-blue-950 text-white">Vote</button>
             </div>
             <div className="flex justify-center gap-2 mt-3">
               <label className="text-base font-medium">No</label>
@@ -421,6 +422,7 @@ const SurveyDetail = () => {
                 className="radio"
                 checked={yesNo === "no"}
               />
+              <button className="btn btn-xs rounded-lg bg-blue-950 text-white">Vote</button>
             </div>
 
             <div>
@@ -431,10 +433,28 @@ const SurveyDetail = () => {
               >
                 Vote For Participate
               </button>
+
+           
               <p className="mt-5 my-8 text-base font-semibold">
                 Total Votes:{" "}
                 <span className="text-[#2a5298] font-bold">{voted}</span>
               </p>
+              
+                     {/* for yes no */}
+                     <div className="flex gap-4 justify-between">
+              <p className="mt-5 my-8 text-base font-semibold">
+                Total Votes For Yes:{" "}
+                <span className="text-[#2a5298] font-bold"></span>
+              </p>
+              <p className="mt-5 my-8 text-base font-semibold">
+                Total Votes For No:{" "}
+                <span className="text-[#2a5298] font-bold"></span>
+              </p>
+              </div>
+
+            
+                   
+            
             </div>
 
             {/* <div className="card-actions flex justify-center mt-6">
@@ -473,7 +493,7 @@ const SurveyDetail = () => {
         <div className="  text-center md:flex items-center">
           <div className="flex text-center  gap-4  ">
             <button
-              disabled={isAdmin || isSurveyor || isReact || isDateExpired}
+              disabled={isAdmin || isSurveyor  || isDateExpired}
               onClick={() => {
                 handleLike(id);
                 setIsReact(true);
@@ -485,7 +505,7 @@ const SurveyDetail = () => {
             </button>
 
             <button
-              disabled={isAdmin || isSurveyor || isReact || isDateExpired}
+              disabled={isAdmin || isSurveyor  || isDateExpired}
               onClick={() => {
                 handleDislike(id);
                 setIsReact(true);
@@ -499,7 +519,7 @@ const SurveyDetail = () => {
           {/* <div>
             <FaComment className="text-5xl"></FaComment>
           </div> */}
-          <form onSubmit={handleComment}>
+          {/* <form onSubmit={handleComment}>
             <div className="mb-6 mt-4 flex items-center">
               <input
                 type="text"
@@ -507,23 +527,32 @@ const SurveyDetail = () => {
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 placeholder="write your comment"
-                className="block  ml-4 p-4 wz-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md rounded-l-lg rounded-r-none"
+                className="block w-[300px] ml-4 p-4 wz-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md rounded-l-lg rounded-r-none"
                 required
               />{" "}
               <button
                 type="submit"
                 disabled={isPro ? false : true}
-                className={`rounded-r-lg text-white py-4 font-medium px-3 ${
+                className={`rounded-r-lg text-white py-4 font-medium  px-3 ${
                   isPro ? "bg-blue-950" : "bg-gray-300"
                 }`}
               >
                 {isPro ? "Comment" : "Only Pro User Can Comment"}
               </button>
             </div>
-          </form>
+          </form> */}
         </div>
+   
 
-        <p className="text-2xl font-bold my-5">Comments</p>
+   {/* for test */}
+    
+           
+
+
+         
+
+
+        {/* <p className="text-2xl font-bold my-5">Comments</p>
 
         {commentedData?.map((singleComment, index) => {
           return (
@@ -542,8 +571,56 @@ const SurveyDetail = () => {
               </div>
             </div>
           );
-        })}
+        })} */}
+
+
+
       </div>
+
+      <form onSubmit={handleComment}>   
+  <div>
+  <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Comment</label>
+  <div className="relative md:w-1/2 w-full mx-auto ">
+    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+      
+    </div>
+    <input 
+   
+    id="default-search" 
+    className="block w-full  p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+    type="text"
+    name="comment"
+    value={comment}
+    onChange={(e) => setComment(e.target.value)}
+    placeholder="write your comment"
+    required />
+    <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-blue-950 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Comment</button>
+  </div>
+</div>
+
+</form>
+
+<p className="text-2xl font-bold my-5 text-center">Comments</p>
+
+{commentedData?.map((singleComment, index) => {
+  return (
+    <div className="flex gap-3  justify-center items-center" key={index}>
+      <div className="">
+        <>{singleComment.email}</>
+      </div>
+      <div>
+        <input
+          type="text"
+          disabled
+          value={singleComment.message}
+          placeholder="Type here"
+          className="input mb-5 rounded-lg input-bordered input-md w-full max-w-xs text-[#2a5298]"
+        />
+      </div>
+    </div>
+  );
+})}
+
     <div className="flex justify-center">
     {/* <DetailChart voted={survey}></DetailChart> */}
     </div>

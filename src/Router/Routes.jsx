@@ -20,6 +20,8 @@ import PrivateRoute from "./PrivateRoute";
 import About from "../Pages/Dashboard/AboutUs/About";
 import UpdateSurvey from "../Pages/Dashboard/UpdateSurvey";
 import MySurvey from "../Pages/Dashboard/MySurvey";
+import AdminDashRes from "../Pages/Dashboard/AdminDashRes";
+import SurveyorDashRes from "../Pages/Dashboard/SurveyorDashRes";
 
 
 const Routes = createBrowserRouter([
@@ -83,8 +85,10 @@ const Routes = createBrowserRouter([
                 path: 'response',
                 element: <AdminRoute><Response></Response></AdminRoute>
             },
-
-
+            {
+                path: 'alluserres/:id',
+                element: <AdminRoute><AdminDashRes></AdminDashRes></AdminRoute>
+            },
             {
                 path: 'creation',
                 element: <PrivateRoute><Creation></Creation></PrivateRoute>
@@ -109,6 +113,10 @@ const Routes = createBrowserRouter([
             {
                 path: 'surresponse',
                 element: <PrivateRoute><SurRes></SurRes></PrivateRoute>
+            },
+            {
+                path: 'yoursurres/:id',
+                element: <PrivateRoute><SurveyorDashRes></SurveyorDashRes></PrivateRoute>
             }
         ]
       }
