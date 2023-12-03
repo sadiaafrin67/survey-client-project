@@ -2,6 +2,12 @@
 
 SurveyNest is a platform that empowers users to create, participate, and engage in surveys. Whether you're a surveyor looking to gather valuable insights or a user eager to voice your opinions, SurveyNest has you covered.
 
+
+## Live Site
+
+Visit [SurveyNest](https://survey-nest-project.web.app) to experience the platform firsthand.
+
+
 ## Features
 
 1. **User Authentication:**
@@ -28,9 +34,7 @@ SurveyNest is a platform that empowers users to create, participate, and engage 
    - Admins can exert control over surveys by publishing or unpublishing them.
    - Admins provide feedback to surveyors for quality enhancement.
 
-## Live Site
 
-Visit [SurveyNest](https://survey-nest-project.web.app) to experience the platform firsthand.
 
 ---------------------------------------
 
