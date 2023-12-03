@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const axiosOpen = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://survey-nest-server.vercel.app'
 })
 
 const useAxiosOpen = () => {

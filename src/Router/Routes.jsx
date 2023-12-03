@@ -38,7 +38,7 @@ const Routes = createBrowserRouter([
             {
                 path: '/details/:id',
                 element: <SurveyDetail></SurveyDetail>,
-                loader: ({params}) => fetch(`http://localhost:5000/surveys/${params.id}`)
+                loader: ({params}) => fetch(`https://survey-nest-server.vercel.app/surveys/${params.id}`)
             },
             {
                 path: '/pro',
@@ -96,7 +96,7 @@ const Routes = createBrowserRouter([
             {
                 path: 'update/:id',
                 element: <PrivateRoute><UpdateSurvey></UpdateSurvey></PrivateRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/surveys/${params.id}`)
+                loader: ({params}) => fetch(`https://survey-nest-server.vercel.app/surveys/${params.id}`)
             },
             {
                 path: 'userFedd',

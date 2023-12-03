@@ -9,7 +9,7 @@ const Footer = () => {
     <div className="md:flex md:justify-between">
       <div className="mb-6 md:mb-0">
         <a className="flex items-center">
-          <img  src="https://i.ibb.co/YQkknL0/logo.jpg" className="h-8 me-3 rounded-full" alt="FlowBite Logo" />
+          <img className="mr-3 w-8 h-8 rounded-full" src="https://banner2.cleanpng.com/20180402/vxq/kisspng-service-business-organization-logistics-consultant-survey-5ac2ceffaf1fb2.2317658315227164157173.jpg" />
           <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">Survey<span className="">Nest</span></span>
         </a>
       </div>

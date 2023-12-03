@@ -85,6 +85,7 @@ const SurveyDetail = () => {
     dislike,
     _id,
     like,
+    timestamp
   } = survey;
 
   useEffect(() => {
@@ -378,13 +379,21 @@ const SurveyDetail = () => {
         <h2 className="card-title">{title}</h2>
         <p className="text-base font-medium mb-5">{description}</p>
         <p className="text-base font-medium">
-          Survey craeted at:{" "}
+          Deadline:{" "}
           <span className="text-[#2a5298] font-semibold">{deadline}</span>
+        </p>
+        <p className="text-base font-medium">
+          Survey Created At:{" "}
+          <span className="text-[#2a5298] font-semibold">{timestamp}</span>
+        </p>
+        <p className="text-base font-medium">
+          Survey Category:{" "}
+          <span className="text-[#2a5298] font-semibold">{category}</span>
         </p>
         <p className="text-lg font-bold">{question}</p>
         <div className="border border-blue-300 p-8">
-          <p className="text-base font-medium">
-            Survey Question:{" "}
+          <p className="text-base font-bold">
+            Poll:{" "}
             <span className="text-[#2a5298] font-semibold">
               Do you want to participate in this survey?
             </span>

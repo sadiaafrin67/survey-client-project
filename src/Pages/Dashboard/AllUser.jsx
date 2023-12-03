@@ -107,8 +107,8 @@ const AllUser = () => {
   return (
     <div className="h-[100vh]">
       <div className="flex justify-evenly  my-8">
-        <h2 className="text-2xl">All Users</h2>
-        <h2 className="text-2xl">Total Users: {users.length}</h2>
+        <h2 className=" font-bold md:text-2xl text-base my-10 text-[#2a5298]">All Users</h2>
+        <h2 className="font-bold md:text-2xl text-base my-10 text-[#2a5298]">Total Users: {users.length}</h2>
       </div>
 
       <form

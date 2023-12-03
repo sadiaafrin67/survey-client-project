@@ -34,7 +34,7 @@ const Testimonial = () => {
               <path d="M6 0H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3H2a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3h-1a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Z" />
             </svg>
             <blockquote>
-              <p className="text-2xl italic font-medium text-gray-900 dark:text-white">
+              <p className="md:text-2xl italic text-sm font-medium text-gray-900 dark:text-white">
                 "I just wanted to let you know that SurveyNest is a great business tool, helping my organization obtain some really important feedback from key stakeholders. Data we will now be using to refine our customer and volunteer experiences throughout the year. The online survey tools are incredibly user-friendly, and the survey proposition is far more useful than we ever thought it was going to be. SurveyNest has enabled us to obtain important information easily and in a format that is powerful and unambiguous. So thank you!"
               </p>
             </blockquote>
@@ -66,7 +66,7 @@ const Testimonial = () => {
               <path d="M6 0H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3H2a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3h-1a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Z" />
             </svg>
             <blockquote>
-              <p className="text-2xl italic font-medium text-gray-900 dark:text-white">
+              <p className="md:text-2xl text-sm italic font-medium text-gray-900 dark:text-white">
                 "I want to thank you so much for this facility. It is helping me so much with my Masters Degree research. It is easy to set up, to use and to retrieve results. Highly recommended!"
               </p>
             </blockquote>
@@ -98,7 +98,7 @@ const Testimonial = () => {
               <path d="M6 0H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3H2a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3h-1a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Z" />
             </svg>
             <blockquote>
-              <p className="text-2xl italic font-medium text-gray-900 dark:text-white">
+              <p className="md:text-2xl text-sm italic font-medium text-gray-900 dark:text-white">
                 "SurveyNest is the perfect tool to generate feedback after group events. Clark Webinar Consulting makes SurveyNest an important part of every webinar we produce. Great functionality and beautiful design!"
               </p>
             </blockquote>
@@ -128,7 +128,7 @@ const Testimonial = () => {
               <path d="M6 0H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3H2a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3h-1a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Z" />
             </svg>
             <blockquote>
-              <p className="text-2xl italic font-medium text-gray-900 dark:text-white">
+              <p className="md:text-2xl text-sm italic font-medium text-gray-900 dark:text-white">
                 "SurveyPlanet is the best website to create surveys! It is very convenient, and it is possible to do many things even if you just decide to keep the free version. The biggest advantage to SurveyPlanet compared to other platforms is the unlimited number of answers you can get. Thank you!"
               </p>
             </blockquote>

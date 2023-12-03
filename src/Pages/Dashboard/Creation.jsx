@@ -52,14 +52,14 @@ const Creation = () => {
     <div>
       <div>
         <div className="bg-[#f1f3f5] rounded-xl md:p-24 p-4 my-20">
-          <h2 className="text-3xl mb-10 text-center font-extrabold">
-            Add Your <span className="text-[#1e3c72]">Survey</span>
+          <h2 className="md:text-2xl text-base mb-10 text-center font-extrabold">
+            Create Your <span className="text-[#1e3c72]">Survey</span>
           </h2>
           <form onSubmit={handleSurvey}>
             <div className="md:flex gap-4 mb-8">
               <div className="form-control   md:w-1/2 ">
                 <label className="label ">
-                  <span className="label-text ">Title</span>
+                  <span className="label-text ">Survey Title</span>
                 </label>
                 <label className="input-group ">
                   <input
@@ -73,7 +73,7 @@ const Creation = () => {
 
               <div className="form-control md:w-1/2">
                 <label className="label">
-                  <span className="label-text">Question</span>
+                  <span className="label-text">Ask Question</span>
                 </label>
 
                 <label className="input-group">

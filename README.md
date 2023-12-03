@@ -30,7 +30,7 @@ SurveyNest is a platform that empowers users to create, participate, and engage 
 
 ## Live Site
 
-Visit [SurveyNest](https://www.surveyx.com) to experience the platform firsthand.
+Visit [SurveyNest](https://survey-nest-project.web.app) to experience the platform firsthand.
 
 ---------------------------------------
 

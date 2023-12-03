@@ -33,6 +33,7 @@ const SurRes = () => {
 
   return (
     <div>
+      <h2 className="text-center font-bold md:text-2xl text-base my-10 text-[#2a5298]">See All Response From Users</h2>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}

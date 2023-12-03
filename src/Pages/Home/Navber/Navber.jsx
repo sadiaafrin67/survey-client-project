@@ -129,10 +129,15 @@ const Navber = () => {
           </ul>
         </div>
         <div className="flex  items-center gap-2">
-          <img
+          {/* <img
             className="w-[50px] rounded-full hidden md:block h-[50px] "
             src="https://i.ibb.co/YQkknL0/logo.jpg"
-            alt=""
+           
+          /> */}
+          <img 
+            className="w-[40px] h-[40px] rounded-full hidden md:block  "
+            src="https://banner2.cleanpng.com/20180402/vxq/kisspng-service-business-organization-logistics-consultant-survey-5ac2ceffaf1fb2.2317658315227164157173.jpg"
+           
           />
           <h4 className="font-bold md:text-2xl text-base">
             Survey<span className="text-[#2a5298]">Nest</span>
