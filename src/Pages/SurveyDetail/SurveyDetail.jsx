@@ -496,7 +496,7 @@ const SurveyDetail = () => {
               </div>
 
               <p className="mt-5 my-8 text-base font-semibold">
-                Grand Votes:{" "}
+                Grandtotal Votes:{" "}
                 <span className="text-[#2a5298] font-bold">{voted}</span>
               </p>
 
@@ -549,7 +549,7 @@ const SurveyDetail = () => {
         <div className="  text-center md:flex items-center">
           <div className="flex text-center  gap-4  ">
             <button
-              disabled={isAdmin || isSurveyor || isDateExpired}
+              disabled={isAdmin || isSurveyor || isDateExpired }
               onClick={() => {
                 handleLike(id);
                 setIsReact(true);

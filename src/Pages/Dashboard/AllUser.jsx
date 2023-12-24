@@ -159,15 +159,7 @@ const AllUser = () => {
                     {user.role === "admin" ? (
                       "Admin"
                     ) : (
-                      // <button
-                      //   onClick={() => handleMakeAdmin(user)}
-                      //   className="btn btn-lg "
-                      // >
-                      //   <FaUsers
-                      //     className="text-white
-                      //                    "
-                      //   ></FaUsers>
-                      // </button>
+                      
 
                       <select
                         defaultValue={user?.role}

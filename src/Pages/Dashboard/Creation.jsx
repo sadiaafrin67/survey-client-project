@@ -17,6 +17,8 @@ const Creation = () => {
     const question = form.question.value;
     const deadline = form.deadline.value;
     const category = form.category.value;
+  
+    
 
     const data = {
       title,
@@ -77,7 +79,7 @@ const Creation = () => {
 
               <div className="form-control md:w-1/2">
                 <label className="label">
-                  <span className="label-text">Ask Question</span>
+                  <span className="label-text"> Question</span>
                 </label>
 
                 <label className="input-group">
@@ -91,6 +93,9 @@ const Creation = () => {
                 </label>
               </div>
             </div>
+
+            
+            
 
             <div className="md:flex gap-4 mb-8">
               <div className="form-control md:w-1/2">
